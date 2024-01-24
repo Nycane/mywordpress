@@ -189,7 +189,7 @@ p:hover.woof_tooltip span.woof_tooltip_data {
 
 .woof_products_top_panel li span{
     padding-right: 16px;
-    background: url(https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/delete.png);
+    background: url(https://https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/delete.png);
     background-size: 14px 14px;
     background-repeat: no-repeat;
     background-position: right;
@@ -256,7 +256,7 @@ p:hover.woof_tooltip span.woof_tooltip_data {
 /*** https://www.svgrepo.com/vectors/search/4 Free Search SVG Vectors and Icons ***/
 .woof_show_auto_form,
 .woof_hide_auto_form{
-    background: url("https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/magnifying-glass.svg");
+    background: url("https://https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/magnifying-glass.svg");
     background-size: cover;
     width: 32px;
     height: 32px;
@@ -312,11 +312,11 @@ p:hover.woof_tooltip span.woof_tooltip_data {
 }
 
 .woof_childs_list_opener span.woof_is_closed{
-    background: url(https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/plus2.svg);
+    background: url(https://https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/plus2.svg);
 }
 
 .woof_childs_list_opener span.woof_is_opened{
-    background: url(https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/minus2.svg);
+    background: url(https://https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/minus2.svg);
 }
 
 

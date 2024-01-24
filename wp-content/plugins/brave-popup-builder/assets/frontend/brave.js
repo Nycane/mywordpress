@@ -252,10 +252,12 @@ function brave_form_goBack(formID, totalSteps){
    //Update ProgressBar
    brave_form_progress(formID, goto, totalSteps);
 
-   if(goto === 0 ){   
-      formBackButton.classList.add('brave_form_stepBack--hide');
-   }else{
-      formBackButton.classList.remove('brave_form_stepBack--hide');
+   if(formBackButton){
+      if(goto === 0 ){   
+         formBackButton.classList.add('brave_form_stepBack--hide');
+      }else{
+         formBackButton.classList.remove('brave_form_stepBack--hide');
+      }
    }
 
    // //Go to Prev Step
@@ -549,14 +551,19 @@ function brave_submit_form(event, settings, supressErrors=false){
    
             var response = JSON.parse(sentData);
             console.log(status, response);
+
+            if(response.error &&  typeof response.error === 'string'){
+               return alert(response.error);
+            }
+
             localStorage.setItem('brave_popup_'+settings.popupID+'_formsubmitted', true);
    
             var braveFormSubmitEvent = new CustomEvent('brave_form_submitted', { detail: {popupId: parseInt(settings.popupID, 10), formId: settings.formID, formData: JSON.stringify(finalFieldsData)} });
             document.dispatchEvent(braveFormSubmitEvent);
    
-            if(document.querySelector('#'+settings.formID+'__form_progress')){
-               document.querySelector('#'+settings.formID+'__form_progress').style.display = 'none';
-            }
+            // if(document.querySelector('#'+settings.formID+'__form_progress')){
+            //    document.querySelector('#'+settings.formID+'__form_progress').style.display = 'none';
+            // }
 
             //Reset the Form
             if(brave_form){  brave_form.reset();   }
@@ -636,7 +643,7 @@ function brave_submit_form(event, settings, supressErrors=false){
                var formStep = parseInt(response.step, 10);
                formStep = formStep === 0 ? 0 : formStep - 1;
                var selectedPopupStep = document.querySelector('#brave_popup_'+settings.popupID+'__step__'+(brave_popup_data[settings.popupID].currentStep||0)+' .brave_popup__step__'+brave_currentDevice)
-               if(selectedPopupStep){ selectedPopupStep.dataset.open = 'false'; }
+               if(selectedPopupStep){ selectedPopupStep.dataset.popopen = 'false'; }
                brave_open_popup(settings.popupID, formStep);
             }
             //If has quiz Shortcode in the popup, insert the quiz scores inside the shortcodes
@@ -870,7 +877,7 @@ function brave_action_step(popupID, currentStep, stepIndex){
    var noMobileContent = selectedPopupStep && selectedPopupStep.dataset.nomobilecontent === 'true' ? true : false;
    var currentDevice = noMobileContent ? 'desktop' : brave_currentDevice;
    var selectedPopupStep = document.querySelector('#brave_popup_'+popupID+'__step__'+currentStep+' .brave_popup__step__'+currentDevice)
-   selectedPopupStep.dataset.open = 'false';
+   selectedPopupStep.dataset.popopen = 'false';
    brave_open_popup(popupID, stepIndex);
    
 }
@@ -1074,8 +1081,21 @@ function brave_init_popup(popupID, popupData ){
    }
 
    //Do not Load if Popups Countdown Timer has ended
-   if(popupData.settings && popupData.settings.frequency && popupData.settings.frequency.timerEnded && popupData.timers.length > 0 && popupData.timers[0].ended){
-      return console.log('Popup Countdown Timer Ended! Hiding..');
+   if(popupData.settings && popupData.settings.frequency && popupData.settings.frequency.timerEnded && popupData.timers.length > 0){
+      const timerData = popupData.timers.find(item => item.device === brave_currentDevice);
+      let hasEnded = false;
+      if(timerData && timerData.endTime && new Date() > new Date(timerData.endTime) && timerData.auto === false) {
+         hasEnded = true;
+      }
+      if(timerData && timerData.auto){
+         const autoEndTime = localStorage.getItem(timerData.auto);
+         if(new Date() > new Date(autoEndTime)){
+            hasEnded = true;
+         }
+      }
+      if(hasEnded){
+         return console.log('Popup Countdown Timer Ended! Hiding..');
+      }
    }
 
    //Do not Load if a certain popup was not viewed/goaled/closed before
@@ -1194,16 +1214,16 @@ function brave_init_popup(popupID, popupData ){
 
          if(brave_popup_data[popupID].userClosed){ return; }
          if((!between && (scrollPercent >= percentLimit)) || ((between && !isNaN(startScrollPercent) && !isNaN(endScrollPercent)) && ((scrollPercent >= startScrollPercent) && (scrollPercent <= endScrollPercent)) )){  
-            if(!brave_popup_data[popupID].loaded){   brave_load_popup(popupID, popupData, 'scroll'); }else{  if(!currentPopStepVisible){brave_open_animation(popupID, 0, currentDevice);   currentPopStep.dataset.open = true; } } 
+            if(!brave_popup_data[popupID].loaded){   brave_load_popup(popupID, popupData, 'scroll'); }else{  if(!currentPopStepVisible){brave_open_animation(popupID, 0, currentDevice);   currentPopStep.dataset.popopen = true; } } 
          }else{ 
-            if((between || scrollHide) && currentPopStepVisible){  brave_close_animation(popupID, 0, currentDevice); currentPopStep.dataset.open = false;  } 
+            if((between || scrollHide) && currentPopStepVisible){  brave_close_animation(popupID, 0, currentDevice); currentPopStep.dataset.popopen = false; brave_popup_data[popupID].isOpen = false;  } 
          }
       }
       document.addEventListener("scroll", function(evt){
          var h = document.documentElement,  b = document.body, st = 'scrollTop', sh = 'scrollHeight';
          var scrollPercent = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
          var currentPopStep = document.querySelector('#brave_popup_'+popupID+'__step__0 .brave_popup__step__'+currentDevice); 
-         var currentPopStepVisible = currentPopStep && currentPopStep.dataset.open === 'true' ? true : false;
+         var currentPopStepVisible = currentPopStep && currentPopStep.dataset.popopen === 'true' ? true : false;
 
          if( brave_isMobile && (popupData.settings.trigger.exitMobileFallback && popupData.settings.trigger.exitMobileFallback.type && popupData.settings.trigger.exitMobileFallback.type ==='scroll')){
             var exitMobielScroll = popupData.settings.trigger.exitMobileFallback.scroll || 15;
@@ -1301,16 +1321,20 @@ function brave_init_popup(popupID, popupData ){
 
 function brave_load_popup(popupID, popupData, triggerType='load'){
    if(brave_popup_data[popupID] && brave_popup_data[popupID].ajaxLoad && !brave_popup_data[popupID].ajaxLoaded){
-      var loadData = { popupID: popupID, type: brave_popup_data[popupID].type, security: bravepop_global.security, current_url: location.href ,action: 'bravepop_ajax_load_popup_content' };
-      brave_ajax_send(bravepop_global.ajaxURL, loadData, function(status, sentData){
-         // console.warn('Load Popup!!', popupID);
-         brave_popup_data[popupID].ajaxLoaded = true;
-         var selectedPopup = document.getElementById('brave_popup_'+popupID);
-         if(selectedPopup){
-            selectedPopup.innerHTML = sentData;
-            brave_process_open_popup(popupID, popupData, triggerType);
-         }
-      });
+      if(brave_popup_data[popupID].ajaxLoading !== true){
+         var loadData = { popupID: popupID, type: brave_popup_data[popupID].type, security: bravepop_global.security, current_url: location.href ,action: 'bravepop_ajax_load_popup_content' };
+         brave_popup_data[popupID].ajaxLoading = true;
+         brave_ajax_send(bravepop_global.ajaxURL, loadData, function(status, sentData){
+            // console.warn('Ajax Load Popup!!', popupID, brave_popup_data[popupID].ajaxLoading);
+            brave_popup_data[popupID].ajaxLoaded = true;
+            brave_popup_data[popupID].ajaxLoading = false;
+            var selectedPopup = document.getElementById('brave_popup_'+popupID);
+            if(selectedPopup){
+               selectedPopup.innerHTML = sentData;
+               brave_process_open_popup(popupID, popupData, triggerType);
+            }
+         });
+      }
    }else{
       brave_process_open_popup(popupID, popupData, triggerType);
    }
@@ -1359,6 +1383,7 @@ function brave_process_open_popup(popupID, popupData, triggerType='load'){
    }
    if(triggerType === 'exit' || triggerType === 'scroll' || triggerType === 'time'){
       var triggerFulFilled = document.getElementById('brave_popup_'+popupID).dataset.triggerfulfilled;
+      console.log('triggerFulFilled: ', triggerFulFilled);
       if(!triggerFulFilled){
          document.getElementById('brave_popup_'+popupID).dataset.triggerfulfilled = true;
          brave_open_popup(popupID, step);
@@ -1377,12 +1402,13 @@ function brave_open_popup(popupID, step=0){
    var noMobileContent = selectedPopupStep && selectedPopupStep.dataset.nomobilecontent === 'true' ? true : false;
    var currentDevice = noMobileContent ? 'desktop' : brave_currentDevice;
    var selectedPopupStep = document.querySelector('#brave_popup_'+popupID+'__step__'+step+' .brave_popup__step__'+currentDevice);
-   var popupStepOpen = selectedPopupStep ? selectedPopupStep.dataset.open : 'false';
+   var popupStepOpen = selectedPopupStep ? selectedPopupStep.dataset.popopen : 'false';
    var hasLockScroll = selectedPopupStep.dataset.scrollock ?  true : false;
    var stickyBar = selectedPopupStep && selectedPopupStep.dataset.layout === 'float' && selectedPopupStep.dataset.position === 'top_center' ? true : false;
    
    if(popupStepOpen !== 'false'){ return }
    if(!popupData){ return }
+   if(popupData && popupData.forceHide){ return console.log(popupID, 'Force Hidden'); }
 
    console.log('Opening ', popupID, step, popupStepOpen, stickyBar, noMobileContent, currentDevice);
    //Set Current Step
@@ -1489,7 +1515,7 @@ function brave_open_popup(popupID, step=0){
       }
 
       //Advanced Animation
-      if(advancedAnimation && hasAnimation && animationData){
+      if(advancedAnimation && hasAnimation && animationData && brave_animate_popup){
          selectedStep.classList.add('brave_popup__step_wrap--show');
          brave_animate_popup(animationData, popupID, step, 'load');
       }
@@ -1552,8 +1578,9 @@ function brave_open_popup(popupID, step=0){
    }
 
    //Change the Popup Step open status
-   selectedPopupStep.dataset.open = true;
+   selectedPopupStep.dataset.popopen = true;
    brave_popup_data[popupID].opened = new Date().getTime();
+   brave_popup_data[popupID].isOpen = true;
 
    //Complete Step Open Goal
    if((popupData.settings && !popupData.settings.goalAction) || (popupData.settings && popupData.settings.goalAction && popupData.settings.goalAction.type  && popupData.settings.goalAction.type==='step' && popupData.settings.goalAction.step !== undefined )){
@@ -1669,7 +1696,7 @@ function brave_close_animation(popupID, step, currentDevice){
             setTimeout(function() { selectedStepDevice.querySelector('.brave_popup__step__overlay').classList.remove('brave_popup__step__overlay--hide'); }, (exitAnimationDuration * 1000)+500);
          }
       }else if(advancedAnimation && hasCustomExitAnimation){
-         if(advancedAnimation && hasAnimation && animationData){
+         if(advancedAnimation && hasAnimation && animationData && brave_animate_popup){
             brave_animate_popup(animationData, popupID, step, 'exit');
          }
       }else{
@@ -1705,7 +1732,7 @@ function brave_close_popup(popupID, step=0, gotoStep=false, updateStat=true){
       
       //Set the Popup Open status to False 
       var selectedPopupStep = selectedStep.querySelector('.brave_popup__step__'+currentDevice);
-      selectedPopupStep.dataset.open = 'false';
+      selectedPopupStep.dataset.popopen = 'false';
 
       //Stop All Videos
       if(brave_popup_videos && Object.keys(brave_popup_videos).length > 0){
@@ -1721,6 +1748,7 @@ function brave_close_popup(popupID, step=0, gotoStep=false, updateStat=true){
       }
 
       brave_popup_data[popupID].userClosed = true;
+      brave_popup_data[popupID].isOpen = false;
       var braveCloseEvent = new CustomEvent('brave_popup_close', { detail: {popupId: parseInt(popupID, 10), step: step} });
       document.dispatchEvent(braveCloseEvent);
 
@@ -1732,8 +1760,9 @@ function brave_close_popup(popupID, step=0, gotoStep=false, updateStat=true){
          if(gotoStep !== false && gotoStep >=0){
             //First set the Taget Step's Open status to false
             var targetStep = document.getElementById('brave_popup_'+popupID+'__step__'+gotoStep);
-            targetStep.querySelector('.brave_popup__step__desktop').dataset.open = false;
-            targetStep.querySelector('.brave_popup__step__mobile').dataset.open = false;
+            targetStep.querySelector('.brave_popup__step__desktop').dataset.popopen = false;
+            targetStep.querySelector('.brave_popup__step__mobile').dataset.popopen = false;
+            
             //Then Open the Popup
             brave_open_popup(popupID, gotoStep);
          }
@@ -1753,11 +1782,11 @@ function brave_close_popup(popupID, step=0, gotoStep=false, updateStat=true){
 
 function brave_send_ga_event(eventCategory, eventAction, eventLabel){
    //console.log('ga Event: ', eventCategory, eventAction, eventLabel);
-   if ("ga" in window && eventCategory && eventAction) {
-      var tracker = ga.getAll()[0];
-      if (tracker){
-         tracker.send('event', eventCategory, eventAction, eventLabel);
-      }
+   if ("gtag" in window && eventCategory && eventAction) {
+      gtag("event", eventAction, {
+         "event_category": eventCategory,
+         "event_label": eventLabel
+     });
    }
 }
 function brave_send_fbq_event(eventType, fbq_content_name, fbq_content_category, fbq_value, fbq_currency){
@@ -1905,7 +1934,7 @@ function brave_complete_goal(popupID, goalType='view', auto=false){
       };
 
       brave_ajax_send(bravepop_global.ajaxURL, goalData, function(status, sentData){   brave_popup_data[popupID].goaled = true; console.log('Goal Complete!!!!!!', sentData);  });
-      localStorage.setItem('brave_popup_'+popupID+'_goal_complete', true);
+      localStorage.setItem('brave_popup_'+popupID+'_goal_complete', goalData.goalTime);
       var braveGoalCompletEvent = new CustomEvent('brave_goal_complete', { detail: {popupId: parseInt(popupID, 10), goalType: goalType} });
       document.dispatchEvent(braveGoalCompletEvent);
       if(brave_popup_data[popupID].settings && brave_popup_data[popupID].settings.notification && brave_popup_data[popupID].settings.notification.analyticsGoal){
@@ -1923,7 +1952,7 @@ function brave_load_fonts(fontArray){
       const inCustomFontList = bravepop_global && bravepop_global.customFonts.find((fnt)=> fnt.name === font);
       if(inCustomFontList){ customFonts.push(font); }else{ googleFonts.push(font); }
    })
-    if(googleFonts.length > 0){
+    if(googleFonts.length > 0 && bravepop_global && bravepop_global.disableGoogleFonts === 'false'){
       WebFontConfig = {
          google: { families: googleFonts }
        };
@@ -1992,6 +2021,7 @@ function brave_apply_woo_coupon(coupon, popupID, elementID, onCouponApply){
       if(onCouponApply==='reload'){ location.reload(); }
       if(onCouponApply==='close' && popupID){ brave_close_popup(popupID); } 
       if(onCouponApply==='cart' && bravepop_global.cartURL){ location.href = bravepop_global.cartURL}
+      if(onCouponApply==='checkout' && bravepop_global.checkoutURL){ location.href = bravepop_global.checkoutURL}
       if(elementID){ document.querySelector('#brave_button_loading_'+elementID).classList.remove('brave_button_loading--show') }
    })
 }

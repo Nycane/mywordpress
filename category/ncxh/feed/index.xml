@@ -9,8 +9,8 @@
 
 <channel>
 	<title>NCXH &#8211; Nguyễn Công Xuân Hùng</title>
-	<atom:link href="https://nycane.github.io/mywordpress/category/ncxh/feed/" rel="self" type="application/rss+xml" />
-	<link>https://nycane.github.io/mywordpress</link>
+	<atom:link href="https://https://nycane.github.io/mywordpress/category/ncxh/feed/" rel="self" type="application/rss+xml" />
+	<link>https://https://nycane.github.io/mywordpress</link>
 	<description>HIHIHIHIHIHIHIIHIHIHIHI</description>
 	<lastBuildDate>Sun, 11 Sep 2022 08:10:10 +0000</lastBuildDate>
 	<language>vi</language>
@@ -18,16 +18,16 @@
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
-	<generator>https://wordpress.org/?v=6.1</generator>
+	<generator>https://wordpress.org/?v=6.4.2</generator>
 	<item>
 		<title>Những Địa Điểm Du Lịch Đẹp Của Việt Nam</title>
-		<link>https://nycane.github.io/mywordpress/nhung-dia-diem-du-lich-dep-cua-viet-nam/</link>
-					<comments>https://nycane.github.io/mywordpress/nhung-dia-diem-du-lich-dep-cua-viet-nam/#comments</comments>
+		<link>https://https://nycane.github.io/mywordpress/nhung-dia-diem-du-lich-dep-cua-viet-nam/</link>
+					<comments>https://https://nycane.github.io/mywordpress/nhung-dia-diem-du-lich-dep-cua-viet-nam/#comments</comments>
 		
 		<dc:creator><![CDATA[nguyencongxuanhung]]></dc:creator>
 		<pubDate>Tue, 23 Aug 2022 08:06:22 +0000</pubDate>
 				<category><![CDATA[NCXH]]></category>
-		<guid isPermaLink="false">https://nycane.github.io/mywordpress/?p=18</guid>
+		<guid isPermaLink="false">https://https://nycane.github.io/mywordpress/?p=18</guid>
 
 					<description><![CDATA[Là một quốc gia đang phát triển nằm bên bờ Thái Bình Dương, Việt Nam sở hữu rất nhiều điểm mạnh để phát triển du lịch. Thực vậy, ngoài các vùng đất mới mẻ ngoài lãnh thổ, nhiều tín đồ du ngoạn vẫn chọn khám phá, check-in ở những địa điểm du lịch Việt Nam. [&#8230;]]]></description>
 										<content:encoded><![CDATA[
@@ -43,7 +43,7 @@
 
 
 
-<figure class="wp-block-image size-full"><img decoding="async" loading="lazy" width="1200" height="786" src="https://nycane.github.io/mywordpress/wp-content/uploads/2022/08/linh-quy-phap-an.jpg" alt="" class="wp-image-30"/></figure>
+<figure class="wp-block-image size-full"><img fetchpriority="high" decoding="async" width="1200" height="786" src="https://https://nycane.github.io/mywordpress/wp-content/uploads/2022/08/linh-quy-phap-an.jpg" alt="" class="wp-image-30"/></figure>
 
 
 
@@ -59,15 +59,15 @@
 
 
 
-<div class="is-layout-flow wp-block-group alignwide"><div class="wp-block-group__inner-container">
-<div class="is-layout-flex wp-container-4 wp-block-columns alignwide are-vertically-aligned-center">
-<div class="is-layout-flow wp-block-column" style="flex-basis:50%"><div class="wp-block-image">
-<figure class="aligncenter"><img decoding="async" loading="lazy" width="960" height="639" src="https://nycane.github.io/mywordpress/wp-content/uploads/2022/08/hoang-su-phi-mua-lua-chin-1.jpg" alt="" class="wp-image-31"/></figure></div></div>
+<div class="wp-block-group alignwide is-layout-flow wp-block-group-is-layout-flow"><div class="wp-block-group__inner-container">
+<div class="wp-block-columns alignwide are-vertically-aligned-center is-layout-flex wp-container-core-columns-layout-1 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%"><div class="wp-block-image">
+<figure class="aligncenter"><img decoding="async" width="960" height="639" src="https://https://nycane.github.io/mywordpress/wp-content/uploads/2022/08/hoang-su-phi-mua-lua-chin-1.jpg" alt="" class="wp-image-31"/></figure></div></div>
 
 
 
-<div class="is-layout-flow wp-block-column" style="flex-basis:50%">
-<div class="is-vertical is-layout-flex wp-container-2 wp-block-group">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-layout-1 wp-block-group-is-layout-flex">
 <p style="font-size:18px">SaPa<strong>&nbsp;</strong>có khí hậu mang sắc thái ôn đới và cận nhiệt đới, không khí mát mẻ. Thời tiết ở thị trấn một ngày có đủ bốn mùa: buổi sáng là tiết trời mùa xuân, buổi trưa tiết trời như vào hạ, thường có nắng nhẹ, khí hậu dịu mát, buổi chiều mây và sương rơi xuống tạo cảm giác lành lạnh như trời thu và ban đêm là cái rét của mùa đông.</p>
 </div>
 </div>
@@ -84,7 +84,7 @@
 
 
 
-<figure class="wp-block-image size-full is-resized"><img decoding="async" loading="lazy" src="https://nycane.github.io/mywordpress/wp-content/uploads/2022/08/15-thac-nuoc-dep-nhat-viet-nam-3-1.jpg" alt="" class="wp-image-33" width="840" height="420"/></figure>
+<figure class="wp-block-image size-full is-resized"><img decoding="async" src="https://https://nycane.github.io/mywordpress/wp-content/uploads/2022/08/15-thac-nuoc-dep-nhat-viet-nam-3-1.jpg" alt="" class="wp-image-33" width="840" height="420"/></figure>
 
 
 
@@ -96,15 +96,15 @@
 
 
 
-<div class="is-layout-flex wp-container-8 wp-block-columns alignwide">
-<div class="is-layout-flow wp-block-column is-vertically-aligned-top" style="flex-basis:50%">
+<div class="wp-block-columns alignwide is-layout-flex wp-container-core-columns-layout-2 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-vertically-aligned-top is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
 <p style="font-size:18px">Du lịch phố cổ Hội An là trải nghiệm thú vị và đáng nhớ với nhiều bạn trong và ngoài nước. Phố cổ Hội An là địa điểm du lịch nổi tiếng cách trung tâm thành phố Đà Nẵng khoảng 30km về phía Tây Nam. Không ồn ào, náo nhiệt, Hội An mang vẻ đẹp bình lặng và cổ kính. Sức hấp dẫn của đô thị hơn 400 năm tuổi xuất phát từ những kiến trúc cổ, những nhà mái ngói rêu phong, những con phố đèn lồng đầy màu sắc,&#8230;&nbsp;Ngoài ra, Hội An cũng nổi tiếng với những lễ hội truyền thống đặc sắc như: lễ hội thành hoàng làng, lễ tưởng niệm các tổ sư ngành nghề, lễ kỷ niệm các bậc thánh nhân tôn giáo,&#8230; và các trò chơi dân gian như hò khoan, hò giã gạo, bài chòi..&nbsp;Ngoài ra, Hội An cũng nổi tiếng với những lễ hội truyền thống đặc sắc như: lễ hội thành hoàng làng, lễ tưởng niệm các tổ sư ngành nghề, lễ kỷ niệm các bậc thánh nhân tôn giáo,&#8230; và các trò chơi dân gian như hò khoan, hò giã gạo, bài chòi..</p>
 </div>
 
 
 
-<div class="is-layout-flow wp-block-column" style="flex-basis:50%"><div class="wp-block-image">
-<figure class="aligncenter"><img decoding="async" loading="lazy" width="1350" height="1688" src="https://nycane.github.io/mywordpress/wp-content/uploads/2022/08/dia-diem-du-lich-viet-nam-19-819x1024-1.webp" alt="" class="wp-image-34"/></figure></div></div>
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%"><div class="wp-block-image">
+<figure class="aligncenter"><img loading="lazy" decoding="async" width="1350" height="1688" src="https://https://nycane.github.io/mywordpress/wp-content/uploads/2022/08/dia-diem-du-lich-viet-nam-19-819x1024-1.webp" alt="" class="wp-image-34"/></figure></div></div>
 </div>
 
 
@@ -113,9 +113,9 @@
 
 
 
-<div class="is-layout-flex wp-container-10 wp-block-columns">
-<div class="is-layout-flow wp-block-column">
-<figure class="wp-block-image size-full"><img decoding="async" loading="lazy" width="1920" height="1280" src="https://nycane.github.io/mywordpress/wp-content/uploads/2022/09/phu-quoc-gfc32e5f9f_1920.jpg" alt="" class="wp-image-958"/></figure>
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-3 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="1920" height="1280" src="https://https://nycane.github.io/mywordpress/wp-content/uploads/2022/09/phu-quoc-gfc32e5f9f_1920.jpg" alt="" class="wp-image-958"/></figure>
 
 
 
@@ -135,7 +135,7 @@
 <p><img decoding="async" src="chrome-extension://bpggmmljdiliancllaapiggllnkbjocb/img/audio.png"></p>
 <p>Việt Nam</p>]]></content:encoded>
 					
-					<wfw:commentRss>https://nycane.github.io/mywordpress/nhung-dia-diem-du-lich-dep-cua-viet-nam/feed/</wfw:commentRss>
+					<wfw:commentRss>https://https://nycane.github.io/mywordpress/nhung-dia-diem-du-lich-dep-cua-viet-nam/feed/</wfw:commentRss>
 			<slash:comments>1</slash:comments>
 		
 		
