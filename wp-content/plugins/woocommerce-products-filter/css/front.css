@@ -36,7 +36,7 @@ li.woof_list{
 }
 
 .woof_childs_list{
-    padding: 7px 0 7px 17px !important;
+    padding: 0 0 0 17px !important;
     margin: 0 !important;
 }
 
@@ -83,6 +83,10 @@ li.woof_list{
     margin: 9px 0 15px 0;
     display: flex;
     justify-content: space-between;
+}
+
+.woof_submit_search_form_container:empty{
+    display: none;
 }
 
 li.woof_childs_list_li{
@@ -162,7 +166,7 @@ p:hover.woof_tooltip span.woof_tooltip_data {
 }
 
 .woof_products_top_panel_ul a{
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .woof_reset_button_2{
@@ -189,7 +193,7 @@ p:hover.woof_tooltip span.woof_tooltip_data {
 
 .woof_products_top_panel li span{
     padding-right: 16px;
-    background: url(https://https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/delete.png);
+    background: url(https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/delete.png);
     background-size: 14px 14px;
     background-repeat: no-repeat;
     background-position: right;
@@ -256,7 +260,7 @@ p:hover.woof_tooltip span.woof_tooltip_data {
 /*** https://www.svgrepo.com/vectors/search/4 Free Search SVG Vectors and Icons ***/
 .woof_show_auto_form,
 .woof_hide_auto_form{
-    background: url("https://https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/magnifying-glass.svg");
+    background: url("https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/magnifying-glass.svg");
     background-size: cover;
     width: 32px;
     height: 32px;
@@ -294,6 +298,17 @@ p:hover.woof_tooltip span.woof_tooltip_data {
     text-align: right !important;
 }
 
+.woof_price_search_container form .price_slider_wrapper{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.woof_price_search_container form .price_slider_wrapper input[type='text']{
+    max-width: 35%;
+    margin-right: 3px;
+    box-shadow: none;
+}
+
 .woof_childs_list_opener{
     vertical-align: middle;
     margin-left: 7px !important;
@@ -312,11 +327,11 @@ p:hover.woof_tooltip span.woof_tooltip_data {
 }
 
 .woof_childs_list_opener span.woof_is_closed{
-    background: url(https://https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/plus2.svg);
+    background: url(https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/plus2.svg);
 }
 
 .woof_childs_list_opener span.woof_is_opened{
-    background: url(https://https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/minus2.svg);
+    background: url(https://nycane.github.io/mywordpress/wp-content/plugins/woocommerce-products-filter/img/minus2.svg);
 }
 
 
@@ -343,7 +358,6 @@ ul.woof_list li{
     font-size: 0.8751em;
 }
 .woof .widget_price_filter .price_slider_amount .button {
-    font-size: 1.15em;
     float: right !important;
 }
 
@@ -556,10 +570,10 @@ ul.woof_list li{
 
 a.woof_front_toggle{
     float:right;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
-.woof_front_toggle img{
+.woof_redraw_zone a.woof_front_toggle img{
     height: 20px;
 }
 
@@ -571,6 +585,7 @@ a.woof_front_toggle{
 .woof_radio_term_reset_visible{
     display: inline-block !important;
     padding: 2px 0 0 7px;
+    position: absolute;
 }
 
 .woof label{
@@ -620,7 +635,8 @@ a.woof_start_filtering_btn2{
 }
 
 .woof_price_filter_txt{
-    width: 75px !important;
+    min-width: 75px !important;
+    max-width: 49%;
 }
 
 a.chosen-single{
@@ -659,11 +675,11 @@ a.chosen-single{
     background: none;
     background-color: #fff;
     box-shadow: none;
-    border: 2px solid #aaa;
+    border: 1px solid #ddd;
 
 }
 .woof_sid_flat_grey .chosen-container-active.chosen-with-drop .chosen-single {
-    border: 2px solid #aaa;
+    border: 1px solid #ddd;
     border-radius: 0;
     background-image: none;
     box-shadow: none;
@@ -675,7 +691,7 @@ a.chosen-single{
 }
 .woof_sid_flat_grey .chosen-container-multi .chosen-choices{
     background-image: none;
-    border: 2px solid #aaaaaa;
+    border: 1px solid #ddd;
 }
 .woof_sid_flat_grey  .chosen-container-active .chosen-choices{
     box-shadow: none;
@@ -702,8 +718,6 @@ a.chosen-single{
     box-shadow: none;
 }
 .woof_sid_flat_grey .woof_submit_search_form_container button{
-    border: 2px solid #aaa;
-    background: #fff;
     box-shadow: none;
 }
 .woof_sid_flat_grey .woof_submit_search_form_container button:hover{
@@ -751,7 +765,7 @@ a.chosen-single{
 }
 .woof_sid_flat_grey {
     background: #fff;
-    border: solid 2px #aaa;
+    border: solid 1px #ddd;
     background: #fdfdfd;
     margin-bottom: 11px;
     margin-top: 30px;
@@ -866,10 +880,7 @@ a.chosen-single{
     text-align: center;
 }
 .woof_sid_flat_dark .woof_submit_search_form_container button{
-    border: 2px solid #e2e6e7;
-    background: #4e4d4d;
     box-shadow: none;
-    color: #e2e6e7;
 }
 .woof_sid_flat_dark .woof_submit_search_form_container button:hover{
     background-color: #97b6be;
@@ -967,10 +978,8 @@ a.chosen-single{
 .woof_auto_1_columns .woof_list_checkbox li,.woof_auto_1_columns .woof_list_radio li{
 
 }
-.woof_auto_1_columns .woof_authors li{
-    display: inline-block;
-    margin-left: 10px;
-}
+
+
 .woof_auto_1_columns .woof_container_select_radio_check .woof_list_checkbox li, .woof_auto_1_columns .woof_container_select_radio_check .woof_list_radio li{
     display: block;
 }
@@ -1038,6 +1047,12 @@ input.woof_checkbox_term, input.woof_radio_term{
     font-family: 'star';
     color: #96588a;
 }
+#select2-woof_select_range-results li{
+    font-family: 'star';
+}
+#select2-woof_select_range-results li:first-of-type {
+    font-family: none;
+}
 .woof_star_selected .chosen-single span{
     font-family: 'star';
     color: #96588a;
@@ -1081,7 +1096,7 @@ ul.chosen-choices{
 
 /*mobile filter*/
 .woof_hide_filter{
-    display: none;
+    display: none !important;
 }
 .woof_show_filter_for_mobile.woof {
     opacity: 0.95;
@@ -1206,7 +1221,19 @@ ul.chosen-results{
     margin: 0;
     padding: 0;
 }
-
+.woof_autohide_wrapper{
+    position: relative;
+}
+.woof_open_hidden_li a img{
+    max-width: 75px;
+}
 /************** reset WOOF style for some wp themes end ***********************/
 
 
+.woof_auto_show_indent{
+    background: #fff;
+}
+
+.widget_price_filter .price_slider_wrapper .price_slider {
+    min-width: 200px;
+}

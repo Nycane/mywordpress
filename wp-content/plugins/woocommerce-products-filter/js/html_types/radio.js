@@ -3,9 +3,18 @@ function woof_init_radios() {
     if (icheck_skin != 'none') {
         jQuery('.woof_radio_term').iCheck('destroy');
 
-        jQuery('.woof_radio_term').iCheck({
-            radioClass: 'iradio_' + icheck_skin.skin + '-' + icheck_skin.color,      
-        });
+        let skin = jQuery('.woof_radio_term').parents('.woof_redraw_zone').eq(0).data('icheck-skin');
+        if (skin) {
+            skin = skin.split('_');
+            jQuery('.woof_radio_term').iCheck({
+                radioClass: 'iradio_' + skin[0] + '-' + skin[1]
+            });
+        } else {
+            jQuery('.woof_radio_term').iCheck({
+                radioClass: 'iradio_' + icheck_skin.skin + '-' + icheck_skin.color
+            });
+        }
+
 
         jQuery('.woof_radio_term').off('ifChecked');
         jQuery('.woof_radio_term').on('ifChecked', function (event) {
@@ -18,29 +27,29 @@ function woof_init_radios() {
             var term_id = jQuery(this).data('term-id');
             woof_radio_direct_search(term_id, name, slug);
         });
-        
+
         //***
 
-  
-         
+
+
     } else {
         jQuery('.woof_radio_term').on('change', function (event) {
             jQuery(this).attr("checked", true);
             var slug = jQuery(this).data('slug');
             var name = jQuery(this).attr('name');
             var term_id = jQuery(this).data('term-id');
-			
-			jQuery(this).parents('.woof_list').find('.woof_radio_term_reset').removeClass('woof_radio_term_reset_visible');
+
+            jQuery(this).parents('.woof_list').find('.woof_radio_term_reset').removeClass('woof_radio_term_reset_visible');
             jQuery(this).parents('.woof_list').find('.woof_radio_term_reset').hide();
             jQuery(this).parents('li').eq(0).find('.woof_radio_term_reset').eq(0).addClass('woof_radio_term_reset_visible');
-			
+
             woof_radio_direct_search(term_id, name, slug);
         });
     }
 
     //***
 
-    jQuery('.woof_radio_term_reset').on('click',function () {
+    jQuery('.woof_radio_term_reset').on('click', function () {
         woof_radio_direct_search(jQuery(this).data('term-id'), jQuery(this).attr('data-name'), 0);
         jQuery(this).parents('.woof_list').find('.checked').removeClass('checked');
         jQuery(this).parents('.woof_list').find('input[type=radio]').removeAttr('checked');

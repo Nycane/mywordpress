@@ -4,15 +4,23 @@ function woof_init_checkboxes() {
 
         jQuery('.woof_checkbox_term').iCheck('destroy');
 
-        jQuery('.woof_checkbox_term').iCheck({
-            checkboxClass: 'icheckbox_' + icheck_skin.skin + '-' + icheck_skin.color,
-        });
-
+        let icheck_selector = '.woof_checkbox_term';
+        let skin = jQuery(icheck_selector).parents('.woof_redraw_zone').eq(0).data('icheck-skin');
+        if (skin) {
+            skin = skin.split('_');
+            jQuery(icheck_selector).iCheck({
+                checkboxClass: 'icheckbox_' + skin[0] + '-' + skin[1]
+            });
+        } else {
+            jQuery(icheck_selector).iCheck({
+                checkboxClass: 'icheckbox_' + icheck_skin.skin + '-' + icheck_skin.color
+            });
+        }
 
         jQuery('.woof_checkbox_term').off('ifChecked');
         jQuery('.woof_checkbox_term').on('ifChecked', function (event) {
             jQuery(this).attr("checked", true);
-            jQuery(".woof_select_radio_check input").attr('disabled','disabled');
+            jQuery(".woof_select_radio_check input").attr('disabled', 'disabled');
             woof_checkbox_process_data(this, true);
         });
 
@@ -25,23 +33,24 @@ function woof_init_checkboxes() {
         //this script should be, because another way wrong way of working if to click on the label
         jQuery('.woof_checkbox_label').off();
         jQuery('label.woof_checkbox_label').on('click', function () {
-            if(jQuery(this).prev().find('.woof_checkbox_term').is(':disabled')){
+            if (jQuery(this).prev().find('.woof_checkbox_term').is(':disabled')) {
                 return false;
             }
-            if (jQuery(this).prev().find('.woof_checkbox_term').is(':checked')) {
+            // if (jQuery(this).prev().find('.woof_checkbox_term').is(':checked')) {
+            if (typeof jQuery(this).prev().find('.woof_checkbox_term').attr('checked') != 'undefined') {
                 jQuery(this).prev().find('.woof_checkbox_term').trigger('ifUnchecked');
                 jQuery(this).prev().removeClass('checked');
             } else {
                 jQuery(this).prev().find('.woof_checkbox_term').trigger('ifChecked');
                 jQuery(this).prev().addClass('checked');
             }
-            
-            
+
+
         });
         //***
 
     } else {
-	
+
         jQuery('.woof_checkbox_term').on('change', function (event) {
             if (jQuery(this).is(':checked')) {
                 jQuery(this).attr("checked", true);
@@ -73,6 +82,7 @@ function woof_checkbox_direct_search(term_id, name, tax, is_checked) {
         checked = true;
     } else {
         values = woof_current_values[tax];
+
         values = values.split(',');
         var tmp = [];
         jQuery.each(values, function (index, value) {
@@ -90,11 +100,10 @@ function woof_checkbox_direct_search(term_id, name, tax, is_checked) {
     }
     jQuery('.woof_checkbox_term_' + term_id).attr('checked', checked);
     woof_ajax_page_num = 1;
-   
+
     if (woof_autosubmit) {
         woof_submit_link(woof_get_submit_link());
     }
 
 }
-
 
